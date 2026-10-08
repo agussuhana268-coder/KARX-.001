@@ -1,26 +1,116 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/*
+  KARX/.001 SOC & Cyber Intelligence Theme
+  Dark near-black interface, restrained terminal green, subtle cyan accents.
+*/
+@theme {
+  --color-bg: #050608;
+  --color-surface: #080D0C;
+  --color-elevated: #0B1412;
+  --color-line: #101A17;
+  --color-line-strong: #1A2923;
+  --color-ink: #E8F0EC;
+  --color-muted: #8A9992;
+  --color-dim: #52635B;
+  --color-accent: #39FF88;
+  --color-accent-bright: #62FF9F;
+  --color-cyan: #00D9FF;
+  --color-warn: #FFB020;
+  --color-critical: #FF3B5C;
+
+  --animate-blink: blink 1.1s steps(1, end) infinite;
+  --animate-ring: ring 3.5s ease-out infinite;
+  --animate-rise: rise 0.4s ease-out forwards;
+
+  @keyframes blink {
+    0%,
+    49% {
+      opacity: 1;
+    }
+    50%,
+    100% {
+      opacity: 0;
+    }
+  }
+  @keyframes ring {
+    0% {
+      transform: scale(0.7);
+      opacity: 0.6;
+    }
+    100% {
+      transform: scale(2.2);
+      opacity: 0;
+    }
+  }
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+:root {
+  color-scheme: dark;
+}
+
+html {
+  background: var(--color-bg);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: rgba(57, 255, 136, 0.25);
+  color: var(--color-ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* Subtle technical grid background */
+.cyber-grid {
+  background-image:
+    linear-gradient(to right, rgba(57, 255, 136, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(57, 255, 136, 0.02) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* Subtle restrained scanline texture */
+.cyber-scanlines {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 2px,
+    rgba(0, 0, 0, 0.18) 2px,
+    rgba(0, 0, 0, 0.18) 4px
+  );
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
